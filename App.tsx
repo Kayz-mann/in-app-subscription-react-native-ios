@@ -1,20 +1,29 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import Home from './src/screens/Home';
+import Demo from './src/screens/Demo';
+import { getPixelSizeForLayoutSize } from 'nativewind';
+import Paywall from './src/screens/Paywall';
+
+export type RootStackParamList = {
+  Home: undefined;
+  Paywall: undefined;
+  Demo: undefined;
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+        <Stack.Screen name="Demo" component={Demo} options={{ headerShown: false }} />
+        <Stack.Screen name="Paywall" component={Paywall} options={{ headerShown: false, presentation: 'modal' }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
